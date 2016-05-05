@@ -30,9 +30,9 @@ function run() {
       rate=1000
     fi
     echo "$green$1$reset" | pv -qL $rate
-    if [ -n "$DEMO_RUN_FAST" ]; then
-      sleep 0.5
-    fi
+    #if [ -n "$DEMO_RUN_FAST" ]; then
+    #  sleep 0.5
+    #fi
     eval "$1"
     r=$?
     read -d '' -t 0.1 -n 10000 # clear stdin
