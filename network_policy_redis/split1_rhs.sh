@@ -5,19 +5,19 @@
 IP=$(kubectl --namespace=demos get svc redis \
         -o go-template='{{.spec.clusterIP}}')
 desc "I can access my frontend but I can also access redis"
-run "ssh -i /tmp/key core@ip-10-0-0-50.eu-central-1.compute.internal docker run -i  --rm redis:alpine redis-cli -h $IP -p 6379 ping"
+run "ssh -i /tmp/key core@ip-10-0-0-50.eu-central-1.compute.internal docker run -i  --rm redis:alpine redis-cli -h $IP -p 6379 SET hits 0"
 
 desc "This is bad news, so lets add some policy"
 desc "There is no existing policy"
 run "ssh -i /tmp/key core@ip-10-0-0-50.eu-central-1.compute.internal ./policy list"
 
-desc "Policy for frontend access"
-run "cat $(relative frontend-policy.yaml)"
-run "cat frontend-policy.yaml | ssh -i /tmp/key core@ip-10-0-0-50.eu-central-1.compute.internal ./policy create -f /dev/stdin"
-
 desc "Policy for redis access (from frontend only)"
 run "cat $(relative redis-policy.yaml)"
 run "cat redis-policy.yaml | ssh -i /tmp/key core@ip-10-0-0-50.eu-central-1.compute.internal ./policy create -f /dev/stdin"
+
+desc "Policy for frontend access"
+run "cat $(relative frontend-policy.yaml)"
+run "cat frontend-policy.yaml | ssh -i /tmp/key core@ip-10-0-0-50.eu-central-1.compute.internal ./policy create -f /dev/stdin"
 
 desc "Turn on isolation and traffic keeps flowing"
 run "kubectl annotate ns demos 'net.alpha.kubernetes.io/network-isolation=yes' --overwrite=true"
