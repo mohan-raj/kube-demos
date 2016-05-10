@@ -4,7 +4,9 @@
 
 IP=$(kubectl --namespace=demos get svc redis \
         -o go-template='{{.spec.clusterIP}}')
-desc "I can access my frontend but I can also access redis"
+desc "I can access the frontend"
+run "echo '<----- see left pane'"
+desc "But I can also access redis"
 run "ssh -i /tmp/key core@ip-10-0-0-50.eu-central-1.compute.internal docker run -i  --rm redis:alpine redis-cli -h $IP -p 6379 SET hits 0"
 
 desc "This is bad news, so lets add some policy"
