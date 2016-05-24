@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 . $(dirname ${BASH_SOURCE})/util.sh
 
