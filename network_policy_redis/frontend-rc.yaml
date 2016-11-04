@@ -12,4 +12,4 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: tomdee/hitme
+        image: caseydavenport/money-maker 

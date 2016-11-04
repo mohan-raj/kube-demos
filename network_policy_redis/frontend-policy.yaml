@@ -1,12 +1,16 @@
 kind: NetworkPolicy
-apiVersion: net.alpha.kubernetes.io/v1alpha1
+apiVersion: extensions/v1beta1 
 metadata:
   namespace: demos
   name: frontend
 spec:
+  # Apply this policy to frontend pods.
   podSelector:
-    demo: frontend
+    matchLabels:
+      demo: frontend
   ingress:
+    # Allow from any source.
     - ports:
-        - port: 80
-          protocol: TCP
+      # But only on TCP port 80.
+      - port: 80
+        protocol: TCP
