@@ -16,7 +16,7 @@ def hello():
         return "%s: failed to connect to redis" % host
 
     # $$ received - display total company funds.
-    return '%s: "Company funds: $%s"' % (host, redis.get('moneyEarned'))
+    return '%s: company funds: $%s' % (host, redis.get('moneyEarned'))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80)
