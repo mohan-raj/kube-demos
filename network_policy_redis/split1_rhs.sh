@@ -5,13 +5,10 @@
 IP=$(kubectl --namespace=demos get svc redis \
         -o go-template='{{.spec.clusterIP}}')
 
-KEY="/Users/casey/.vagrant.d/insecure_private_key"
-SSH_NODE=172.18.18.101
-
 desc "I can access the frontend"
 run "echo '<----- see left pane'"
 desc "But I can also access redis"
-run "ssh -i $KEY core@$SSH_NODE docker run -i  --rm redis:alpine redis-cli -h $IP -p 6379 SET moneyEarned 0"
+run "ssh n1 docker run -i  --rm redis:alpine redis-cli -h $IP -p 6379 SET moneyEarned 0"
 
 desc "This is bad news, so lets add some policy"
 desc "There is no existing policy"
@@ -30,7 +27,7 @@ run "cat demo-ns-isolated.yaml"
 run "kubectl apply -f demo-ns-isolated.yaml"
 
 desc "But we can no longer access redis directly - only the frontend can"
-run "ssh -i $KEY core@$SSH_NODE docker run -i  --rm redis:alpine redis-cli -h $IP -p 6379 SET moneyEarned 0"
+run "ssh n1 docker run -i  --rm redis:alpine redis-cli -h $IP -p 6379 SET moneyEarned 0"
 
 desc "Remove policy to access redis and the frontend starts giving errors"
 run "kubectl delete -f redis-policy.yaml"

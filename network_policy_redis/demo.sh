@@ -2,10 +2,6 @@
 
 . $(dirname ${BASH_SOURCE})/../util.sh
 
-desc "Install Calico + kubedns"
-run "kubectl apply -f $(relative calico.yaml)"
-run "kubectl apply -f $(relative kubedns.yaml)"
-
 desc "Create a Namespace for the demo"
 run "kubectl create ns demos"
 

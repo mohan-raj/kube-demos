@@ -1,21 +1,21 @@
-# Steps to run the policy demo.
+# Steps to setup the policy demo.
 
 Requires `kubectl` and `vagrant` to be installed.
 
+I'm using https://github.com/tomdee/kubeadm-vagrant and this demo assumes that the master node is called `n1` and that the config is in place to just do `ssh n1`
 
-Start the vagrant cluster:
+The demo also assumes that networking and policy are in place.
 
-	vagrant up
+A sample file to install flannel for networking and Calico for policy is checked in
 
-Wait for three nodes to appear:
+Flannel:
+``
 
-	kubectl get nodes
-	NAME            STATUS                     AGE
-	172.18.18.101   Ready,SchedulingDisabled   1m
-	172.18.18.102   Ready                      2m
-	172.18.18.103   Ready                      2m
+Calico:
+``
 
-Run the demo script:
+
+# Run the demo script:
 
 	./demo.sh
 
