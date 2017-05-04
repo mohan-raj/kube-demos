@@ -16,11 +16,11 @@ run "kubectl get networkpolicy --all-namespaces"
 
 desc "Policy for redis access (from frontend only)"
 run "cat $(relative redis-policy.yaml)"
-run "kubectl create -f redis-policy.yaml"
+run "kubectl apply -f redis-policy.yaml"
 
 desc "Policy for frontend access"
 run "cat $(relative frontend-policy.yaml)"
-run "kubectl create -f frontend-policy.yaml"
+run "kubectl apply -f frontend-policy.yaml"
 
 desc "Turn on isolation and traffic keeps flowing"
 run "cat demo-ns-isolated.yaml"
@@ -38,7 +38,7 @@ run "kubectl delete -f frontend-policy.yaml"
 desc "Turn off isolation and traffic resumes"
 run "kubectl apply -f demo-ns.yaml"
 
-desc "Tear down the test"
-run "kubectl delete ns demos"
+#desc "Tear down the test"
+#run "kubectl delete ns demos"
 
 desc "And that's it!"

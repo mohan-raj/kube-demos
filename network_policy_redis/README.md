@@ -8,12 +8,10 @@ The demo also assumes that networking and policy are in place.
 
 A sample file to install flannel for networking and Calico for policy is checked in
 
-Flannel:
-``
-
-Calico:
-``
-
+```
+kubectl apply -f rbac.yaml
+kubectl apply -f canal.yaml
+```
 
 # Run the demo script:
 
